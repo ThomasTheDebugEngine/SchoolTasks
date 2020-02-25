@@ -26,6 +26,7 @@ task4:
 ---------------------------------------------
 
 task5: x is string input if a char occurs more than once the duplicates are removed and TOTAL count is appended
-"aaakgrjh" = "a3kgrjh"
+(uniques get 1 after them)
+"aaakgrjh" = "a3k1g1r1j1h1"
 
 ---------------------------------------------
