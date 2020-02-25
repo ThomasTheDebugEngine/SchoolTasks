@@ -28,7 +28,7 @@ substact this input from every element of the result array
 
 ---------------------------------------------
 
-task5: x is string input if a char occurs more than once the duplicates are removed and TOTAL count is appended
+task5: x is string input if a char occurs more than once the duplicates are removed and occurance count is appended
 (uniques get 1 after them)
 "aaakgrjh" = "a3k1g1r1j1h1"
 
