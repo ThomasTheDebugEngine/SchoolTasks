@@ -23,7 +23,8 @@ task3: x is a sting input
 
 ---------------------------------------------
 
-task4:
+task4: same as task 2 but an aditional value is given 
+substact this input from every element of the result array 
 
 ---------------------------------------------
 
