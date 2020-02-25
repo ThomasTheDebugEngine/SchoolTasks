@@ -10,7 +10,9 @@ task 1: search for occurances of chars in strings
 
 ---------------------------------------------
 
-task2:
+task2: a 2D array of values are given (pass as single into function) 
+| take the values from 10-100
+| with the values calculate mean, max, min, sum (of the filtered values)
 
 ---------------------------------------------
 
