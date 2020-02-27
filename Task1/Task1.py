@@ -1,26 +1,37 @@
-def splitN(n):
-    return list(n)
+def splitN(word):
+    return list(word)
 
-n = input("Enter a word or a sentence: ")
+word = input("Enter a word or a sentence: ")
 
-def splitOptionA(a):
-    return list(a)
+def splitOptionA(checkA):
+    return list(checkA)
 
-a = input("Enter letters / numbers: ")
+checkA = input("Enter letters / numbers: ")
 
-def splitOptionB(b):
-    return list(b)
+def splitOptionB(checkB):
+    return list(checkB)
 
-b = input("Enter different letters / numbers: ")
+checkB = input("Enter different letters / numbers: ")
 
-print(splitN(n))
-print(splitOptionA(a))
-print(splitOptionB(b))
+print(splitN(word))
+print(splitOptionA(checkA))
+print(splitOptionB(checkA))
 
-count = 0
-lengthA = str(range(a))
+countA = 0
+countB = 0
+for x in word:
+    for y in checkA:
+        if x == y:
+            countA = countA + 1
 
-for a in lengthA:
-    if a == lengthA:
-        count = count + 1
-    print(count)
+
+for x in word:
+    for y in checkB:
+        if x == y:
+            countB = countB + 1
+
+print(countA)
+print(countB)
+
+sum = countA - countB
+print(sum)
