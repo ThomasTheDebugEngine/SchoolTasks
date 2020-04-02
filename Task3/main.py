@@ -14,10 +14,10 @@ def program():
         program()
     #This part divides the string into equal groups
     string = (textwrap.wrap(word, number))
-    #This loop goes over the the divided groups
+    #This loop goes over the divided groups in the list
     for i in range(len(string)):
         new_string = ""
-        #This loop reaaranges the divided groups and removes duplicates.
+        #This loop creates a new list and rearranges the divided groups and removes duplicates.
         for char in string[i]:
             if char not in new_string:
                 new_string += char
