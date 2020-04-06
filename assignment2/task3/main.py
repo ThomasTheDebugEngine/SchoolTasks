@@ -19,24 +19,14 @@ class Item:
         return self.__dict__
 
 class Food(Item):
-
-    def __init__(self, name, quantity=1, price=10):
-        self.name = name
-        self.quantity = quantity
-        self.price = price
-        self.total_price = quantity * price
-
+    #since "Food" class is inheriting from the "Item" class there is not need to rewrite the constructor.
+    #I only copied the method of full_info and applied adjustment to it.
     def full_info(self):
         return "Food " + self.name + " " + str(self.price) + " " + str(self.quantity) + " " + str(self.get_total_price())
 
 class Drink(Item):
-
-    def __init__(self, name, quantity=1, price=10):
-        self.name = name
-        self.quantity = quantity
-        self.price = price
-        self.total_price = quantity * price
-
+    #since "Drink" class is inheriting from the "Item" class there is not need to rewrite the constructor.
+    #I only copied the method of full_info and applied adjustment to it.
     def full_info(self):
         return "Drink " + self.name + " " + str(self.price) + " " + str(self.quantity) + " " + str(self.get_total_price())
 
