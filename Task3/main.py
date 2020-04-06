@@ -1,18 +1,28 @@
-import sys
+import textwrap
+from itertools import groupby
 
-#This part is getting the Inputs from the user.
-word = input("Please input a random letters: ")
-wordCount = len(word)
-number = int(input("Please input only int number: "))
+def program():
+    #This part is getting the Inputs from the user.
+    word = input("Please input a random letters: ")
+    wordcount = len(word)
+    number = int(input("Please input only int number: "))
+    #This part is used to check if the 2nd input is divided by the 1st part equally, if not, it repeats.
+    if (number > 0) and (int(wordcount) % number == 0):
+        print("Inputs were received and returned Okay.")
+    else:
+        print("I am sorry but your inputs are invalid, Please try again :)")
+        program()
+    #This part divides the string into equal groups
+    string = (textwrap.wrap(word, number))
+    #This loop goes over the divided groups in the list
+    for i in range(len(string)):
+        new_string = ""
+        #This loop creates a new list and rearranges the divided groups and removes duplicates.
+        for char in string[i]:
+            if char not in new_string:
+                new_string += char
+        string[i] = new_string
 
-#This part check if the entered string can be equally divided into the entered number, if not it quits the program.(couldn't find Restart command)
-if (int(number) > 0) and (wordCount % number == 0):
-    print("Inputs were received and returned Okay.")
-else:
-    print("I am sorry but your inputs are invalid, Please try again :)")
-    sys.exit()
+    print(string)
 
-# needs Improvement but it kinda works.
-result = "".join(sorted(set(word), key=word.index))
-out = [(result[i:i+number]) for i in range(0, len(result), number)]
-print(out)
+program()
