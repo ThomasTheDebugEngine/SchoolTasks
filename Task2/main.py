@@ -1,19 +1,28 @@
-arr = [10,65,2,75,150]
+arr = []
+userinput = 0
 
 # for c in range[0,5]:
 #   arr.append(input("enter number ")+ str(c+1) +": "))
 
-newarr=[]
-for x in range(0,len(arr)):
-    if int(arr[x]) >= 10 and int(arr[x]) <= 100:
-        newarr.append(arr[x])
+
+def user_prompt(userinput):
+    print("input here : ")
+    userinput = int(input())
+    arr.append(userinput)
+
+
+for i in range(5):
+    user_prompt(userinput)
 
 solutionsarr = []
-def opeartions (newarr):
-    solutionsarr.append(sum(newarr))
-    solutionsarr.append(min(newarr))
-    solutionsarr.append(max(newarr))
-    solutionsarr.append(sum(newarr)/len(newarr))
+
+
+def opeartions(arr):
+    solutionsarr.append(sum(arr))
+    solutionsarr.append(min(arr))
+    solutionsarr.append(max(arr))
+    solutionsarr.append(sum(arr)/len(arr))
     print(solutionsarr)
 
-opeartions(newarr)
+
+opeartions(arr)

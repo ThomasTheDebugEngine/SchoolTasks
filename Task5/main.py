@@ -2,6 +2,7 @@ input_str = input("input main string: ")
 pos_arr = input("input pos array: ")
 neg_arr = input("input negative array: ")
 
+
 def user_prompt():
     print("input here : ")
     user_input = str(input())
@@ -12,7 +13,7 @@ def is_valid_input(inp_str):  # TODO add more cases for checking (easier in nest
     if len(inp_str) >= 1:
         find_unique(inp_str)
     else:
-        print("sting is invalid please try again")
+        print("String is invalid please try again")
 
 
 def find_unique(clean_string):
