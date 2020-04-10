@@ -2,12 +2,11 @@ class customer:
     def __init__(self, name, cartArr):
         self.__name = name
         self.__cartArr = cartArr
+        self.__foodArr = []
+        self.__drinkArr = []
 
-        if(self.__cartArr[0] == "food"):
-            self.add_item("list", "food", -1, self.__cartArr)
+        self.add_item("list", -1, self.__cartArr)
         
-        elif(self.__cartArr[0] == "drink"):
-            self.add_item("list", "drink", -1, self.__cartArr)
 
     @property
     def name(self):
@@ -52,12 +51,30 @@ class customer:
 #------------------------------------------------------------------------------
 # methods
 
-    def add_item(self, mode, type, inputObj, inputList):
+    def add_item(self, mode, inputObj, inputList):
         if(mode == "list"):
-            #list was given add extract and add
-            print("tst " + str(inputList))
+            if(inputList[0] == "food"):
+                slicedList = inputList[1:]
+                self.__foodArr.append(slicedList)
+                print(self.__foodArr) # for testing
+            
+            elif(inputList[0] == "drink"):
+                slicedList = inputList[1:]
+                self.__drinkArr.append(slicedList)
+                print(self.__foodArr) # for testing
+
+
         elif(mode == "object"):
-            #object was given extract and add
+            if(inputObj.type == "food"):
+                slicedList = [inputObj.name, inputObj.quantity, inputObj.price]
+                self.__foodArr.append(slicedList)
+                print(self.__foodArr) # for testing
+
+            elif(inputObj.type == "drink"):
+                slicedList = [inputObj.name, inputObj.quantity, inputObj.price]
+                self.__drinkArr.append(slicedList)
+                print(self.__drinkArr) # for testing
+
             return 0
     
     def remove_item(self, inputObj):
@@ -127,11 +144,32 @@ def inputInterface():
 #------------------------------------------------------------------------------
 # flow unifier
 
-def app(inputArr, inputObj):
+# ! issue with scoping on constructor (doesn't recognise c3 object in else)
 
-    c3 = customer("Spertre", inputArr)
+c4 = customer("putin", ["food","bread", 1, 2])
+def app(inputArr, inputObj):
+    global c4
+
+    c4.add_item("object", inputObj, -1)
     
-    #c3.outputResult()
+    #c4.outputResult()
+
+#------------------------------------------------------------------------------
+# loop program prompt
+
+def startAgain():
+    inputMore = input("input more ? [y]es or [n]o: ")
+
+    if(inputMore == "y"):
+        inputInterface()
+
+    elif(inputMore == "n"):
+        return 0
+    
+    else:
+        print("please enter a valid option")
+        startAgain()
 
 
 inputInterface()
+startAgain()
