@@ -16,7 +16,7 @@ class customer:
         self.__name = name
 
     @cartArr.setter
-    def cartArr(self, paramArr):
+    def cartArr(self, cartArr):
         self.__cartArr = cartArr
 
     def outputResult(self):
