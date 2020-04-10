@@ -1,5 +1,5 @@
 class customer:
-    def __init__(self, name , cartArr):
+    def __init__(self, name, cartArr):
         self.__name = name
         self.__cartArr = cartArr
 
@@ -16,12 +16,11 @@ class customer:
         self.__name = name
 
     @cartArr.setter
-    def cartArr(self, paramArr):
+    def cartArr(self, cartArr):
         self.__cartArr = cartArr
 
     def outputResult(self):
         print("name: " + self.__name + ", cart items: " + str(self.cartArr))
-
 
 
 foodArr = ["bread", 1, 2.5]

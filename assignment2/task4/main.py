@@ -38,7 +38,7 @@ class Customer:
     # Constructor with private name and class variable.
     identifier = 0
 
-    def __init__(self, name, price, itemname, quantity):
+    def __init__(self, [[name, price, itemname, quantity]], name):
         Customer.identifier += 1
         self.__name = name
         self.identifier = Customer.identifier
