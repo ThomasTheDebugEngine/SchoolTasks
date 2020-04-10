@@ -144,8 +144,6 @@ def inputInterface():
 #------------------------------------------------------------------------------
 # flow unifier
 
-# ! issue with scoping on constructor (doesn't recognise c3 object in else)
-
 c4 = customer("putin", ["food","bread", 1, 2])
 def app(inputArr, inputObj):
     global c4
