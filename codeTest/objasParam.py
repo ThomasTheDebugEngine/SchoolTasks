@@ -78,19 +78,19 @@ class customer:
             return 0
     
     def remove_item(self, type, index):
-        if(index > -1):    
+        if(int(index) > -1):    
             if(type == "food"):
                 if(len(self.__foodArr) > 0):
-                    del self.__foodArr[index]
-                    print("removed " + str(self.__foodArr[index]))
+                    print("removed " + str(self.__foodArr[int(index)]))
+                    del self.__foodArr[int(index)]
                 
                 else:
                     print("Error removing item")
             
             elif(type == "drink"):
                 if(len(self.__foodArr) > 0):
-                    del self.__foodArr[index]
-                    print("removed " + str(self.__drinkArr[index]))
+                    print("removed " + str(self.__drinkArr[int(index)]))
+                    del self.__foodArr[int(index)]
                 
                 else:
                     print("Error removing item")
@@ -123,61 +123,59 @@ class drink:
         self.price = price
 
 #------------------------------------------------------------------------------
-# testing
-
-# cart = foodArr + drinkArr
-# print(tstfood.returnList())
-# c2 = customer("bond" , food("butter", 2, 1))
-
-# c2.add_item(food("butter23", 2, 1))
-
-# foodItem = food("bread" , 1, 4)
-
-# tstfood = ["bread", 2, 4]
-
-# c1 = customer("wick", tstfood)
-# c1.outputResult()
-
-#------------------------------------------------------------------------------
-# flow splitter
-
-def inputInterface():
-    itemType = input("input item type, [food] or [drink]: ")
-    itemName = input("input item name: ")
-    itemQty = input("input quantity: ")
-    itemPrice = input("input price: ")
-
-    itemArr = [itemType , itemName, itemQty, itemPrice]
-    
-    if(itemType == "food"):
-        itemObj = food("food", itemName, itemQty, itemPrice)
-        app(itemObj)
-    
-    elif(itemType == "drink"):
-        itemObj = drink("drink" , itemName, itemQty, itemPrice)
-        app(itemObj)
-    
-    else:
-        print ("please enter a valid option, [food] or [drink]")
-        inputInterface()
-
-#------------------------------------------------------------------------------
-# flow unifier
-
+# flow controller
 
 c4 = customer("putin", ["food","bread", 1, 2])
 # add customers like above and save to array below
 customerArr = [c4]
 
-    
-def app(inputObj):
+count = 0
+def inputInterface(editMode):
     global customerArr
+    global count
 
-    # add customers to here with index and call a function of the class
-    customerArr[0].add_item("object", inputObj, -1)
+    if(editMode == "add"):
+        count = count + 1
+        
+        itemType = input("input item type, [food] or [drink]: ")
+        itemName = input("input item name: ")
+        itemQty = input("input quantity: ")
+        itemPrice = input("input price: ")
+
+        itemArr = [itemType , itemName, itemQty, itemPrice]
+        
+        if(itemType == "food"):
+            itemObj = food("food", itemName, itemQty, itemPrice)
+            customerArr[0].add_item("object", itemObj, -1)
+        
+        elif(itemType == "drink"):
+            itemObj = drink("drink" , itemName, itemQty, itemPrice)
+            customerArr[0].add_item("object", itemObj, -1)
+        
+        else:
+            print ("please enter a valid option, [food] or [drink]")
+            inputInterface(editMode)
 
 
-customerArr[0].remove_item("food", 0)
+    elif(editMode == "remove" and count > 0):
+        count = count - 1
+
+        idx = input("input the index you want to remove: ")
+        
+        if(len(idx) == 0):
+            print("please enter a value")
+            inputInterface(editMode)
+
+        elif(idx.isdigit()):
+            customerArr[0].remove_item("food", idx) # remove selected indexes from selected customers
+
+        else:
+            print("please enter a number")
+            inputInterface(editMode)
+
+
+    elif(editMode == "remove" and not count > 0):
+        print("cannot remove before adding a customer")
 
 #------------------------------------------------------------------------------
 # loop program prompt
@@ -186,7 +184,7 @@ def startAgain():
     inputMore = input("input more ? [y]es or [n]o: ")
 
     if(inputMore == "y"):
-        inputInterface()
+        inputInterface("add", -1)
 
     elif(inputMore == "n"):
         return 0
@@ -195,6 +193,12 @@ def startAgain():
         print("please enter a valid option")
         startAgain()
 
+#------------------------------------------------------------------------------
+# program start
 
-inputInterface()
+
+# add and then remove (manual flow set)
+inputInterface("add") 
+inputInterface("remove")
+
 startAgain()
