@@ -151,11 +151,11 @@ def inputInterface():
     
     if(itemType == "food"):
         itemObj = food("food", itemName, itemQty, itemPrice)
-        app(itemArr, itemObj)
+        app(itemObj)
     
     elif(itemType == "drink"):
         itemObj = drink("drink" , itemName, itemQty, itemPrice)
-        app(itemArr, itemObj)
+        app(itemObj)
     
     else:
         print ("please enter a valid option, [food] or [drink]")
@@ -170,12 +170,14 @@ c4 = customer("putin", ["food","bread", 1, 2])
 customerArr = [c4]
 
     
-def app(inputArr, inputObj):
+def app(inputObj):
     global customerArr
 
     # add customers to here with index and call a function of the class
     customerArr[0].add_item("object", inputObj, -1)
-    customerArr[0].remove_item("food", 0)
+
+
+customerArr[0].remove_item("food", 0)
 
 #------------------------------------------------------------------------------
 # loop program prompt
