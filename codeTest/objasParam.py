@@ -77,8 +77,28 @@ class customer:
 
             return 0
     
-    def remove_item(self, inputObj):
-        return 0
+    def remove_item(self, type, index):
+        if(index > -1):    
+            if(type == "food"):
+                if(len(self.__foodArr) > 0):
+                    del self.__foodArr[index]
+                    print("removed " + str(self.__foodArr[index]))
+                
+                else:
+                    print("Error removing item")
+            
+            elif(type == "drink"):
+                if(len(self.__foodArr) > 0):
+                    del self.__foodArr[index]
+                    print("removed " + str(self.__drinkArr[index]))
+                
+                else:
+                    print("Error removing item")
+
+
+        else:
+            print("please enter a valid index")
+            return 0
 
     def outputResult(self):
         print("name: " + self.__name + ", cart items: " + str(self.cartArr))
@@ -144,13 +164,18 @@ def inputInterface():
 #------------------------------------------------------------------------------
 # flow unifier
 
-c4 = customer("putin", ["food","bread", 1, 2])
-def app(inputArr, inputObj):
-    global c4
 
-    c4.add_item("object", inputObj, -1)
+c4 = customer("putin", ["food","bread", 1, 2])
+# add customers like above and save to array below
+customerArr = [c4]
+
     
-    #c4.outputResult()
+def app(inputArr, inputObj):
+    global customerArr
+
+    # add customers to here with index and call a function of the class
+    customerArr[0].add_item("object", inputObj, -1)
+    customerArr[0].remove_item("food", 0)
 
 #------------------------------------------------------------------------------
 # loop program prompt
