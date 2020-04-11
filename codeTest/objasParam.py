@@ -146,11 +146,11 @@ def inputInterface(editMode):
         
         if(itemType == "food"):
             itemObj = food("food", itemName, itemQty, itemPrice)
-            customerArr[0].add_item("object", itemObj, -1)
+            customerArr[0].add_item("object", itemObj, -1) # add food items to cutomer in index 0 or array
         
         elif(itemType == "drink"):
             itemObj = drink("drink" , itemName, itemQty, itemPrice)
-            customerArr[0].add_item("object", itemObj, -1)
+            customerArr[0].add_item("object", itemObj, -1) # add food items to cutomer in index 0 or array
         
         else:
             print ("please enter a valid option, [food] or [drink]")
