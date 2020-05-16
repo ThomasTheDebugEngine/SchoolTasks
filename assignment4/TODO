@@ -1,0 +1,61 @@
+The source code must be commented.
+------------------------------------------------------------------------------------------------------------------------
+
+1 task
+        Create two models:
+
+        Article - stored information about articles:
+
+        id - integer, unique identifier, primary key
+
+        author - text, 100 characters, author's name, required
+
+        title - text, 50 characters, article title, required
+
+        article_text - text, 1000 characters, article text, required
+
+        created_at - the date and time the article was created fills in automatically when the entry is created
+
+        Comment - comments on articles are stored:
+
+        id - integer, unique identifier, primary key
+
+        email - text, 50 characters, e-mail of the user who writes the comment. mail, required
+
+        comment_text - text, 100 characters, user comment, required
+
+        created_at - the date and time the comment was created fills in automatically when the comment is created
+
+        One article has many comments and one comment has one article. Establish appropriate relationships between models.
+------------------------------------------------------------------------------------------------------------------------
+
+2 task
+        Create three articles and assign three comments to each.
+------------------------------------------------------------------------------------------------------------------------
+
+3 task
+        Create three templates: display a single article, display a list of articles, display comments of a single
+        article. Also create a base template that will be inherited by other templates. The basic template includes
+        your name and a link to a list of all articles.
+
+        Clicking on an article in the list of articles opens a window for a specific article. It must be possible
+        to access its comments from the window of a specific article.
+------------------------------------------------------------------------------------------------------------------------
+
+4 Task
+        URL	HTTP method	Description
+        /articles	GET	Returns the list of articles (use template)
+        /articles/< int:id >	GET	Returns a specific article (use template)
+        /articles/< int:id >/comments	GET	Returns all comments of the article (parameter ID - article identifier) (use template)
+------------------------------------------------------------------------------------------------------------------------
+
+5 task
+        Create a RESTFul API resource for updating / creating / deleting article information. The resource supports
+        three HTTP methods: POST - to create the article, PUT - to update the article information, and DELETE - to
+        delete the article. Respectively, the resource is accessed via /api/article/ <int: id> or /api/article/.
+
+        To create a request data validator (parser) for the POST method, which would check that the author, title and
+        article_text fields would be provided when calling this method.
+
+        All methods must return an object consisting of: id, author, title, article_text fields
+        (use the marshal method or marshal_with decorator).
