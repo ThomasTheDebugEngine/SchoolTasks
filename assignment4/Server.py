@@ -1,31 +1,29 @@
 from bottle import get, post, delete, put, run, template, request
 from datetime import datetime
-from Database import Database
+from SchoolTasks.assignment4.Database import Database  # change tis accordingly to your file structure
 
-db = Database()
-db.database_main()
+db = Database()  # initialise database 
+db.database_main()  # start the database
 
-# print(db.get_article_by_id(1))
-# print(len(db.get_article_by_id(1)))
-# print(db.get_all_article_comments(1))
-print(db.get_all_articles())
-# print(db.delete_all_articles())
+usr_input = input("is this for testing task 2 ? [y]es or [n]o: ")
 
-# db.add_new_article("author1", "title1", "body1")
-# db.add_new_article("author2", "title2", "body2")
-# db.add_new_article("author3", "title3", "body3")
-# db.add_new_article("author4", "title4", "body4")
+if usr_input == "y":  # task 2, (adding 3 articles and 3 comments to each article
+    db.delete_all_articles()
 
-# db.add_new_comment("commentEmail1", "commentBody1", 1)
-# db.add_new_comment("commentEmail2", "commentBody2", 1)
+    db.add_new_article("author1", "title1", "body1")
+    db.add_new_comment("comment_email11", "comment_body11", 1)
+    db.add_new_comment("comment_email11", "comment_body12", 1)
+    db.add_new_comment("comment_email11", "comment_body13", 1)
 
+    db.add_new_article("author2", "title2", "body2")
+    db.add_new_comment("comment_email11", "comment_body21", 2)
+    db.add_new_comment("comment_email11", "comment_body22", 2)
+    db.add_new_comment("comment_email11", "comment_body23", 2)
 
-# @route("/")
-# def index():
-#    return template("base_template.tpl")
-
-
-# all_articles = db.get_all_articles()
+    db.add_new_article("author3", "title3", "body3")
+    db.add_new_comment("comment_email11", "comment_body31", 3)
+    db.add_new_comment("comment_email11", "comment_body32", 3)
+    db.add_new_comment("comment_email11", "comment_body33", 3)
 
 
 @get("/articles")

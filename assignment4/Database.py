@@ -5,23 +5,23 @@ import time
 
 class Database:
     def __init__(self):
-        self.conn = self.connect("temporary.db")
-        self.curs = self.conn.cursor()
+        self.conn = self.connect("temporary.db")  # connect to the databse and store connection
+        self.curs = self.conn.cursor()  # get database cursor object
 
     @property
-    def conn(self):
+    def conn(self):  # connection property
         return self._conn
 
     @conn.setter
-    def conn(self, value):
+    def conn(self, value):  # setter for connection property
         self._conn = value
 
     @property
-    def curs(self):
+    def curs(self):  # cursor property
         return self._curs
 
     @curs.setter
-    def curs(self, value):
+    def curs(self, value):  # setter for cursor property
         self._curs = value
 
     def connect(self, db_address):  # connect to database
@@ -213,34 +213,5 @@ class Database:
         else:
             return "return article not found"
 
-    def database_main(self):
-        self.start_database()
-        # self.add_new_article("nOnE", "js rules", "need to justify why?")
-        # add_new_comment("NoNemail", "subj js rules", 1)
-
-        # add_new_article("nada", "ts for the win", "for real, it rocks")
-        # add_new_article("ola", "interface in your face", "with inheritance")
-
-
-# database_main()
-
-# get all articles from db (helper)
-# print("fetching articles")
-# curs.execute("SELECT * FROM articles")
-# print(curs.fetchall())
-
-# get all comments from db
-# print("fetching comments")
-# curs.execute("SELECT * FROM comments")
-# print(curs.fetchall())
-
-
-# remove article table (helper)
-# print("removing table")
-# curs.execute("DROP TABLE articles")
-
-
-# get by query (helper)
-# print("getting by query")
-# curs.execute("SELECT * FROM articles WHERE article_id = 4")
-# print(len(curs.fetchall()))
+    def database_main(self):  # main function for the database
+        self.start_database()  # start the databse
