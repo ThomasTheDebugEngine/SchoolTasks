@@ -6,9 +6,13 @@ newarr = []
 
 
 def user_prompt(userinput):
-    print("input here : ")
-    userinput = int(input())
-    newarr.append(userinput)
+    try:
+        print("input here : ")
+        userinput = int(input())
+        newarr.append(userinput)
+    except:
+        print("Input is not correct")
+        exit()
 
 
 for i in range(5):

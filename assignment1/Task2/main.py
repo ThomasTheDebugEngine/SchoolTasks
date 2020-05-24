@@ -6,9 +6,13 @@ userinput = 0
 
 
 def user_prompt(userinput):
-    print("input here : ")
-    userinput = int(input())
-    arr.append(userinput)
+    try:
+        print("input here : ")
+        userinput = int(input())
+        arr.append(userinput)
+    except:
+        print("Input is not correct")
+        exit()
 
 
 for i in range(5):
