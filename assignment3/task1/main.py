@@ -39,22 +39,19 @@ class Database:
 
     def create_store_table(self):  # create the article table
         print("creating store table...")
+
         self.curs.execute(
             '''CREATE TABLE store (
                 store_id INTEGER PRIMARY KEY, 
                 name TEXT, 
                 address TEXT, 
-                items TEXT, 
-                item_id,
-                FOREIGN KEY (item_id)
-                    REFRENCES items (item_id)
-                    ON UPDATE CASCADE
-                    ON DELETE CASCADE
+                items TEXT
             )'''
         )
 
     def create_item_table(self):  # create the comment table
         print("creating Item table...")
+
         self.curs.execute(
             '''CREATE TABLE items (
                 item_id INTEGER PRIMARY KEY,
@@ -73,19 +70,66 @@ class Database:
 
     def create_component_table(self):  # create the comment table
         print("creating coponents table...")
+
         self.curs.execute(
-            '''CREATE TABLE component (
+            '''CREATE TABLE components (
                 component_id INTEGER PRIMARY KEY,
                 name TEXT,
                 quantity DECIMAL,
                 timestamp,
                 item_id,
-                FOREIGN KEY (store_id)
-                    REFERENCES articles (store_id)
+                FOREIGN KEY (item_id)
+                    REFERENCES items (item_id)
                     ON UPDATE CASCADE
                     ON DELETE CASCADE
             )'''
         )
 
+
+    def check_store_table_exists(self):
+        self.curs.execute('''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='store' ''')
+
+        if self.curs.fetchone()[0] == 1:
+            return True  # table exists
+        else:
+            return False  # table does not exist
+
+
+    def check_item_table_exists(self):
+        self.curs.execute('''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='items' ''')
+
+        if self.curs.fetchone()[0] == 1:
+            return True  # table exists
+        else:
+            return False  # table does not exist
+
+
+    def check_component_table_exists(self):
+        self.curs.execute('''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='components' ''')
+
+        if self.curs.fetchone()[0] == 1:
+            return True  # table exists
+        else:
+            return False  # table does not exist
+
     def database_main(self):  # main function for the database
         self.start_database()  # start the databse
+
+    def start_database(self):  # start the database
+        if not self.check_store_table_exists():
+            self.create_store_table()
+        else:
+            print("store table already exists !")
+        
+        if not self.check_item_table_exists():
+            self.create_item_table()
+        else:
+            print("items table already exists !")
+
+        if not self.check_component_table_exists():
+            self.create_component_table()
+        else:
+            print("components table already exists !")
+
+db = Database()  # initialise database 
+db.database_main()  # start the database
