@@ -1,0 +1,79 @@
+1 Task
+Create tables:
+Shop, table name - shops:
+
+id - integer, PK
+name - string, max length - 40, not NULL
+address - string, max length - 100
+items - relation to Item
+Item, table name - items:
+
+id - integer, PK
+barcode - string, max length - 32, unique
+name - string, max length - 40, not NULL
+description - string, max length - 200, default value - EMPTY
+unit_price - decimal (10, 2), not NULL, default value 1.00
+created_at - DateTime, default value - record creation date and time
+shop_id - integer, FK to shops.id
+shop - relation to Shop table
+components - relation to Component table
+Component, table name - components:
+
+id - integer, PK
+name - string, max length - 20
+quantity - decimal (10, 2), default value 1.00
+item_id - integer, FK to items.id
+item - relation to Item
+One shop can hold many items, one item can hold many components.
+
+-------------------------------------------------------------------------------
+
+2 task
+Create records in tables:
+
+Shop:
+
+name='IKI', address='Kaunas, Iki street 1'
+name='MAXIMA', address='Kaunas, Maksima street 2'
+Item:
+
+IKI shop
+barcode='112233112233', name='Žemaičių bread', unit_price=1.55
+barcode='33333222111', description='Milk from Klaipeda', name='Klaipeda milk', unit_price=2.69
+MAXIMA shop
+barcode='99898989898', name='Aukštaičių bread', unit_price=1.65
+barcode='99919191991', description='Milk from Vilnius', name='Vilnius milk', unit_price=2.99
+Component
+
+IKI Žemaičių bread
+name='Flour', quantity=1.50
+name='Water', quantity=1.00
+IKI Klaipeda milk
+name='Milk', quantity=1.00
+MAXIMA Aukštaičių bread
+name='Flour', quantity=1.60
+name='Water', quantity=1.10
+MAXIMA Vilnius milk
+name='Milk', quantity=1.10
+
+-------------------------------------------------------------------------------
+
+3 task
+Replace component 'Water' quantity from 1.00 to 1.45 of 'Žemaičių bread', which is in the 'IKI' shop.
+Delete component 'Milk' from 'Vilnius milk', which is in the 'MAXIMA' shop.
+
+-------------------------------------------------------------------------------
+
+4 task
+Print the items of all shops, as well as the components of those items.
+
+-------------------------------------------------------------------------------
+
+5 task
+Create queries:
+
+Select items that have related components
+Select items, which name contains 'ien'
+Count how many components each item consists of
+Calculate the quantity of components for each item
+At your discretion, form a query for the selected data and describe it.
