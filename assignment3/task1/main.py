@@ -25,6 +25,7 @@ class Database:
     def curs(self, value):  # setter for cursor property
         self._curs = value
 
+
     def connect(self, db_address):  # connect to database
         print("connecting to db...")
 
@@ -37,6 +38,7 @@ class Database:
 
         return connection
 
+
     def create_store_table(self):  # create the article table
         print("creating store table...")
 
@@ -48,6 +50,7 @@ class Database:
                 items TEXT
             )'''
         )
+
 
     def create_item_table(self):  # create the comment table
         print("creating Item table...")
@@ -67,6 +70,7 @@ class Database:
                     ON DELETE CASCADE
             )'''
         )
+
 
     def create_component_table(self):  # create the comment table
         print("creating coponents table...")
@@ -112,8 +116,10 @@ class Database:
         else:
             return False  # table does not exist
 
+
     def database_main(self):  # main function for the database
         self.start_database()  # start the databse
+
 
     def start_database(self):  # start the database
         if not self.check_store_table_exists():
@@ -130,6 +136,7 @@ class Database:
             self.create_component_table()
         else:
             print("components table already exists !")
+
 
 db = Database()  # initialise database 
 db.database_main()  # start the database
