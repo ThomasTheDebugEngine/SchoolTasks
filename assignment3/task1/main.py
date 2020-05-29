@@ -186,18 +186,32 @@ class Database:
         item2_id = items_arr[1][0]  # extract the id from the items
 
         self.curs.execute("SELECT * FROM components WHERE item_id={0}".format(item1_id))
-        item1_component_arr = self.curs.fetchall()
+        item1_component_arr = self.curs.fetchall()  # save components to array
 
         self.curs.execute("SELECT * FROM components WHERE item_id={0}".format(item2_id))
-        item2_component_arr = self.curs.fetchall()
+        item2_component_arr = self.curs.fetchall()  # save components to array
 
-        commons_array = []
-        for item1 in item1_component_arr:
+        commons_array = []  # array for common items
+        for item1 in item1_component_arr:  # search component
             for item2 in item2_component_arr:
                 if(item1[1] == item2[1]):
-                    commons_array.append(item1)
+                    commons_array.append(item1)  # save found component
         
-        return commons_array
+        print(commons_array)
+
+
+    def count_components_of_items(self):  # count the components of items
+        self.curs.execute("SELECT * FROM components")
+        all_components_arr = self.curs.fetchall()
+
+        unique_components = []
+        for component in all_components_arr:
+            unique_components.append(component[1])
+
+        unique_components = list(set(unique_components))
+
+        print(unique_components)
+
 
 
 db = Database()  # initialise database
@@ -221,6 +235,8 @@ db.create_component(10, "Milk", 1.10, time.time(), 13)
 db.modify_component_by_id(6, 1.45)
 db.delete_component_by_id(10)
 
-print(db.get_all_relative_components(3, 12))
+db.get_all_relative_components(3, 12)
+
+db.count_components_of_items()
 
 db.print_all()
