@@ -72,8 +72,8 @@ Print the items of all shops, as well as the components of those items.
 5 task
 Create queries:
 
-Select items that have related components
-Select items, which name contains 'ien'
-Count how many components each item consists of
-Calculate the quantity of components for each item
-At your discretion, form a query for the selected data and describe it.
+Select items that have related components (thomas) (done)
+Select items, which name contains 'ien' (aniket)
+Count how many components each item consists of (thomas) (done)
+Calculate the quantity of components for each item (aniket)
+At your discretion, form a query for the selected data and describe it. (aniket)
