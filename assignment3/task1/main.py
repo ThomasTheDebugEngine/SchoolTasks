@@ -57,13 +57,17 @@ class Database:
 
         self.curs.execute(
             '''CREATE TABLE items (
-                item_id INTEGER PRIMARY KEY,3
+                item_id INTEGER PRIMARY KEY,
                 barcode TEXT ,
                 name TEXT,
                 description TEXT,
                 unit_price DECIMAL,
                 timestamp,
-                shop_id INT FOREIGN KEY REFERENCES shop(shop_id)
+                shop_id, 
+                FOREIGN KEY (shop_id) 
+                    REFERENCES shop(shop_id)
+                    ON UPDATE NO ACTION
+                    ON DELETE NO ACTION
             )'''
         )
 
@@ -77,7 +81,11 @@ class Database:
                 name TEXT,
                 quantity DECIMAL,
                 timestamp,
-                item_id INT FOREIGN KEY REFERENCES items(item_id)
+                item_id,
+                FOREIGN KEY (item_id)
+                    REFERENCES items(item_id)
+                    ON UPDATE NO ACTION
+                    ON DELETE NO ACTION
             )'''
         )
 
@@ -158,7 +166,8 @@ class Database:
         else:
             print("components table already exists !")
 
-    def modify_item_by_id(self, id, new_value):
+
+    def modify_component_by_id(self, id, new_value):
         self.curs.execute("UPDATE components SET quantity={0}".format(str(new_value)))
         self.conn.commit()
 
@@ -181,5 +190,7 @@ db.create_component(7, "Milk", 1.00, time.time(), 4)
 db.create_component(8, "Flour", 1.60, time.time(), 12)
 db.create_component(9, "Water", 1.10, time.time(), 12)
 db.create_component(10, "Milk", 1.10, time.time(), 13)
+
+db.modify_item_by_id(6, 1.45)
 
 db.print_all()
