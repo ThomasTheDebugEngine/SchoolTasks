@@ -127,7 +127,7 @@ class Database:
             '''INSERT INTO shop VALUES (?, ?, ?, ?)''', (id, name, address, item_id))
         self.conn.commit()
 
-   def create_item(self, id, barcode, name, description, unit_price, shop_id, timestamp):
+    def create_item(self, id, barcode, name, description, unit_price, shop_id, timestamp):
         self.curs.execute('''INSERT INTO items VALUES (?, ?, ?, ?, ?, ?,?)''',
                           (id, barcode, name, description, unit_price, timestamp, shop_id))
         self.conn.commit()
@@ -156,6 +156,7 @@ class Database:
         else:
             print("components table already exists !")
 # This is where we take a components quanitity by its ID .
+
     def modify_component_by_id(self, id, new_value):
         self.curs.execute("UPDATE components SET quantity={0} WHERE component_id={1}".format(
             str(new_value), id,))
@@ -166,22 +167,26 @@ class Database:
             "DELETE FROM components WHERE component_id={0}".format(id,))
         self.conn.commit()
     # This function prints the items with the word in the parameter in it and we can use thisto do iet part
+
     def consists_word(self, name):
         self.curs.execute(
             '''SELECT * FROM items WHERE name LIKE '%?%''', (name))
         self.conn.commit()
-    # We Quantify how many components have the same id as an item and then the print the length of te ampunt of rows in there 
+    # We Quantify how many components have the same id as an item and then the print the length of te ampunt of rows in there
+
     def quanity_components(self, id):
         self.curs.execute(
             '''SELECT * FROM components WHERE item_id = '%?%''', (id))
         print(self.curs.len)
 
     # In this query we will baiscally select anything that has the word we put in parameters in the stores name and then display them
-    def random_query(self,name):
-        self.curs.execute('''SELECT * FROM shop WHERE  name LIKE '%?%''',(name))
+    def random_query(self, name):
+        self.curs.execute(
+            '''SELECT * FROM shop WHERE  name LIKE '%?%''', (name))
         for rows in self.curs:
             print(rows)
-    # In here we get all the relative components from the Items 
+    # In here we get all the relative components from the Items
+
     def get_all_relative_components(self, first_item, second_item):
         self.curs.execute(
             "SELECT * FROM items WHERE item_id IN (?, ?)", (first_item, second_item,))
