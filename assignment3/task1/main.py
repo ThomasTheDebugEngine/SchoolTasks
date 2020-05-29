@@ -132,8 +132,7 @@ class Database:
 
     def create_shop(self, id, name, address, item_id):
         self.curs.execute('''INSERT INTO shop VALUES (?, ?, ?, ?)''', (id, name, address, item_id))
-        self.conn.commit()
-        
+        self.conn.commit()     
 
 
     def create_item(self, id, barcode, name, description, unit_price, shop_id, timestamp):
@@ -177,6 +176,7 @@ class Database:
     def delete_component_by_id(self, id):
         self.curs.execute("DELETE FROM components WHERE component_id={0}".format(id,))
         self.conn.commit()
+
 
     def get_all_relative_components(self, first_item, second_item):
         self.curs.execute("SELECT * FROM items WHERE item_id IN (?, ?)",(first_item, second_item,))
