@@ -86,10 +86,20 @@ class Database:
         else:
             return False  # table does not exist
 
+    def print_all(self):
+        self.curs.execute("SELECT * from shop")
+        for row in self.curs:
+            print(row)
+        self.curs.execute("SELECT * from items")
+        for row in self.curs:
+            print(row)
+        self.curs.execute("SELECT * from components")
+        for row in self.curs:
+            print(row)
+
     def check_item_table_exists(self):
         self.curs.execute(
             '''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='items' ''')
-
         if self.curs.fetchone()[0] == 1:
             return True  # table exists
         else:
@@ -109,11 +119,11 @@ class Database:
                           (id, name, address, item_id))
 
     def create_item(self, id, barcode, name, description, unit_price, shop_id, timestamp):
-        self.curs.execute('''INSERT INTO items VALUES (?, ?, ?, ?, ?, ?)''',
+        self.curs.execute('''INSERT INTO items VALUES (?, ?, ?, ?, ?, ?,?)''',
                           (id, barcode, name, description, unit_price, timestamp, shop_id))
 
     def create_component(self, id, name, quanity, timestamp, item_id):
-        self.curs.execute('''INSERT INTO items VALUES (?, ?, ?, ?, )''',
+        self.curs.execute('''INSERT INTO components VALUES (?, ?, ?, ?, ?)''',
                           (id, name, quanity, timestamp, item_id))
 
     def database_main(self):  # main function for the database
@@ -155,3 +165,5 @@ db.create_component(7, "Milk", 1.00, time.time(), 4)
 db.create_component(8, "Flour", 1.60, time.time(), 12)
 db.create_component(9, "Water", 1.10, time.time(), 12)
 db.create_component(10, "Milk", 1.10, time.time(), 13)
+
+db.print_all()
