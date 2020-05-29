@@ -91,8 +91,7 @@ class Database:
 
 
     def check_shop_table_exists(self):
-        self.curs.execute(
-            '''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='shop' ''')
+        self.curs.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='shop' ")
 
         if self.curs.fetchone()[0] == 1:
             return True  # table exists
@@ -179,6 +178,27 @@ class Database:
         self.curs.execute("DELETE FROM components WHERE component_id={0}".format(id,))
         self.conn.commit()
 
+    def get_all_relative_components(self, first_item, second_item):
+        self.curs.execute("SELECT * FROM items WHERE item_id IN (?, ?)",(first_item, second_item,))
+        items_arr = self.curs.fetchall()  # get the searched items from db
+        
+        item1_id = items_arr[0][0]  # extract the id from the items
+        item2_id = items_arr[1][0]  # extract the id from the items
+
+        self.curs.execute("SELECT * FROM components WHERE item_id={0}".format(item1_id))
+        item1_component_arr = self.curs.fetchall()
+
+        self.curs.execute("SELECT * FROM components WHERE item_id={0}".format(item2_id))
+        item2_component_arr = self.curs.fetchall()
+
+        commons_array = []
+        for item1 in item1_component_arr:
+            for item2 in item2_component_arr:
+                if(item1[1] == item2[1]):
+                    commons_array.append(item1)
+        
+        return commons_array
+
 
 db = Database()  # initialise database
 db.database_main()  # start the database
@@ -200,5 +220,7 @@ db.create_component(10, "Milk", 1.10, time.time(), 13)
 
 db.modify_component_by_id(6, 1.45)
 db.delete_component_by_id(10)
+
+print(db.get_all_relative_components(3, 12))
 
 db.print_all()
