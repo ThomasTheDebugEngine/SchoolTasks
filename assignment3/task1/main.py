@@ -86,6 +86,12 @@ class Database:
         else:
             return False  # table does not exist
 
+    def select_with_word(self, word):
+        self.curs.execute(
+            '''SELECT * FROM items WHERE name LIKE "?" ''', (word))
+        for a in self.curs:
+            print(a)
+
     def print_all(self):
         self.curs.execute("SELECT * from shop")
         for row in self.curs:
