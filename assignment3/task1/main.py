@@ -60,8 +60,8 @@ class Database:
                 description TEXT,
                 unit_price DECIMAL,
                 timestamp,
-                shop_id, 
-                FOREIGN KEY (shop_id) 
+                shop_id,
+                FOREIGN KEY (shop_id)
                     REFERENCES shop(shop_id)
                     ON UPDATE NO ACTION
                     ON DELETE NO ACTION
@@ -123,11 +123,20 @@ class Database:
             return False  # table does not exist
 
     def create_shop(self, id, name, address, item_id):
-        self.curs.execute(
-            '''INSERT INTO shop VALUES (?, ?, ?, ?)''', (id, name, address, item_id))
-        self.conn.commit()
 
-    def create_item(self, id, barcode, name, description, unit_price, shop_id, timestamp):
+
+<< << << < HEAD
+   self.curs.execute(
+        '''INSERT INTO shop VALUES (?, ?, ?, ?)''', (id, name, address, item_id))
+    self.conn.commit()
+== == == =
+   self.curs.execute('''INSERT INTO shop VALUES (?, ?, ?, ?)''',
+                     (id, name, address, item_id))
+    self.conn.commit()
+
+>>>>>> > ffc2dc02b7ec679ce9e2ad13d3994035189021bb
+
+   def create_item(self, id, barcode, name, description, unit_price, shop_id, timestamp):
         self.curs.execute('''INSERT INTO items VALUES (?, ?, ?, ?, ?, ?,?)''',
                           (id, barcode, name, description, unit_price, timestamp, shop_id))
         self.conn.commit()
@@ -192,8 +201,8 @@ class Database:
             "SELECT * FROM components WHERE item_id={0}".format(item2_id))
         item2_component_arr = self.curs.fetchall()
 
-        commons_array = []
-        for item1 in item1_component_arr:
+        commons_array = []  # array for common items
+        for item1 in item1_component_arr:  # search component
             for item2 in item2_component_arr:
                 if(item1[1] == item2[1]):
                     commons_array.append(item1)
@@ -224,6 +233,8 @@ db.create_component(10, "Milk", 1.10, time.time(), 13)
 db.modify_component_by_id(6, 1.45)
 db.delete_component_by_id(10)
 
-print(db.get_all_relative_components(3, 12))
+db.get_all_relative_components(3, 12)
+
+db.count_components_of_items()
 
 db.print_all()
