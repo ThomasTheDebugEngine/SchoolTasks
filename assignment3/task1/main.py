@@ -123,20 +123,16 @@ class Database:
             return False  # table does not exist
 
     def create_shop(self, id, name, address, item_id):
+        self.curs.execute(
+                '''INSERT INTO shop VALUES (?, ?, ?, ?)''', (id, name, address, item_id))
+        self.conn.commit()
+
+        self.curs.execute('''INSERT INTO shop VALUES (?, ?, ?, ?)''',
+                            (id, name, address, item_id))
+        self.conn.commit()
 
 
-<< << << < HEAD
-   self.curs.execute(
-        '''INSERT INTO shop VALUES (?, ?, ?, ?)''', (id, name, address, item_id))
-    self.conn.commit()
-== == == =
-   self.curs.execute('''INSERT INTO shop VALUES (?, ?, ?, ?)''',
-                     (id, name, address, item_id))
-    self.conn.commit()
-
->>>>>> > ffc2dc02b7ec679ce9e2ad13d3994035189021bb
-
-   def create_item(self, id, barcode, name, description, unit_price, shop_id, timestamp):
+    def create_item(self, id, barcode, name, description, unit_price, shop_id, timestamp):
         self.curs.execute('''INSERT INTO items VALUES (?, ?, ?, ?, ?, ?,?)''',
                           (id, barcode, name, description, unit_price, timestamp, shop_id))
         self.conn.commit()
