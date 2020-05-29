@@ -132,18 +132,21 @@ class Database:
 
 
     def create_shop(self, id, name, address, item_id):
-        self.curs.execute('''INSERT INTO shop VALUES (?, ?, ?, ?)''',
-                          (id, name, address, item_id))
+        self.curs.execute('''INSERT INTO shop VALUES (?, ?, ?, ?)''', (id, name, address, item_id))
+        self.conn.commit()
+        
 
 
     def create_item(self, id, barcode, name, description, unit_price, shop_id, timestamp):
         self.curs.execute('''INSERT INTO items VALUES (?, ?, ?, ?, ?, ?,?)''',
                           (id, barcode, name, description, unit_price, timestamp, shop_id))
+        self.conn.commit()
 
 
     def create_component(self, id, name, quanity, timestamp, item_id):
         self.curs.execute('''INSERT INTO components VALUES (?, ?, ?, ?, ?)''',
                           (id, name, quanity, timestamp, item_id))
+        self.conn.commit()
 
 
     def database_main(self):  # main function for the database
@@ -168,7 +171,7 @@ class Database:
 
 
     def modify_component_by_id(self, id, new_value):
-        self.curs.execute("UPDATE components SET quantity={0}".format(str(new_value)))
+        self.curs.execute("UPDATE components SET quantity={0} WHERE component_id={1}".format(str(new_value), id,))
         self.conn.commit()
 
 db = Database()  # initialise database
@@ -191,6 +194,6 @@ db.create_component(8, "Flour", 1.60, time.time(), 12)
 db.create_component(9, "Water", 1.10, time.time(), 12)
 db.create_component(10, "Milk", 1.10, time.time(), 13)
 
-db.modify_item_by_id(6, 1.45)
+db.modify_component_by_id(6, 1.45)
 
 db.print_all()
