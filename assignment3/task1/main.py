@@ -25,6 +25,7 @@ class Database:
     def curs(self, value):  # setter for cursor property
         self._curs = value
 
+
     def connect(self, db_address):  # connect to database
         print("connecting to db...")
 
@@ -37,6 +38,7 @@ class Database:
 
         return connection
 
+
     def create_shop_table(self):  # create the article table
         print("creating shop table...")
 
@@ -48,6 +50,7 @@ class Database:
                 items TEXT
             )'''
         )
+
 
     def create_item_table(self):  # create the comment table
         print("creating Item table...")
@@ -64,6 +67,7 @@ class Database:
             )'''
         )
 
+
     def create_component_table(self):  # create the comment table
         print("creating coponents table...")
 
@@ -77,6 +81,7 @@ class Database:
             )'''
         )
 
+
     def check_shop_table_exists(self):
         self.curs.execute(
             '''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='shop' ''')
@@ -86,11 +91,6 @@ class Database:
         else:
             return False  # table does not exist
 
-    def select_with_word(self, word):
-        self.curs.execute(
-            '''SELECT * FROM items WHERE name LIKE "?" ''', (word))
-        for a in self.curs:
-            print(a)
 
     def print_all(self):
         self.curs.execute("SELECT * from shop")
@@ -103,6 +103,7 @@ class Database:
         for row in self.curs:
             print(row)
 
+
     def check_item_table_exists(self):
         self.curs.execute(
             '''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='items' ''')
@@ -110,6 +111,7 @@ class Database:
             return True  # table exists
         else:
             return False  # table does not exist
+
 
     def check_component_table_exists(self):
         self.curs.execute(
@@ -120,20 +122,25 @@ class Database:
         else:
             return False  # table does not exist
 
+
     def create_shop(self, id, name, address, item_id):
         self.curs.execute('''INSERT INTO shop VALUES (?, ?, ?, ?)''',
                           (id, name, address, item_id))
+
 
     def create_item(self, id, barcode, name, description, unit_price, shop_id, timestamp):
         self.curs.execute('''INSERT INTO items VALUES (?, ?, ?, ?, ?, ?,?)''',
                           (id, barcode, name, description, unit_price, timestamp, shop_id))
 
+
     def create_component(self, id, name, quanity, timestamp, item_id):
         self.curs.execute('''INSERT INTO components VALUES (?, ?, ?, ?, ?)''',
                           (id, name, quanity, timestamp, item_id))
 
+
     def database_main(self):  # main function for the database
         self.start_database()  # start the database
+
 
     def start_database(self):  # start the database
         if not self.check_shop_table_exists():
@@ -151,6 +158,9 @@ class Database:
         else:
             print("components table already exists !")
 
+    def modify_item_by_id(self, id, new_value):
+        self.curs.execute("UPDATE components SET quantity={0}".format(str(new_value)))
+        self.conn.commit()
 
 db = Database()  # initialise database
 db.database_main()  # start the database

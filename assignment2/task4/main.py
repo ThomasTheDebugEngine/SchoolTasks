@@ -67,19 +67,29 @@ class Customer:
 # Creating 3 objects (Customers)
 
 c1 = Customer("Jonas Jonaitis", 1, "1.3", "Bread")
+c2 = Customer("Djonas Vikas", 1, "1.4", "Pencils")
+c3 = Customer("Baulius", 1, "1.3", "Bread")
 
 # Printing the total Objects which are 3.
-print(Customer.identifier)
+# print(Customer.identifier)
 
 # Printing each objects identifier depends on their creation.
-print(c1.get_identifier())
+# print(c1.get_identifier())
 # print(c2.get_identifier())
 # print(c3.get_identifier())
 
 # Printing the total of the objects again.
-print(Customer.identifier)
+# print(Customer.identifier)
 
 # Priniting the full name of the objects together with their Identifier (number).
+# print(c1.full_name())
 print(c1.full_name())
-# print(c2.full_name())
-# print(c3.full_name())
+print(c2.full_name())
+print(c3.full_name())
+
+c1_dict = {
+    "identifier": str(c1.identifier),
+    "name": str(c1.name),
+    "items_list": ""
+}
+ # TODO will do making json later
