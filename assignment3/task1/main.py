@@ -174,17 +174,21 @@ class Database:
         self.curs.execute("UPDATE components SET quantity={0} WHERE component_id={1}".format(str(new_value), id,))
         self.conn.commit()
 
+
+    def delete_component_by_id(self, id):
+        self.curs.execute("DELETE FROM components WHERE component_id={0}".format(id,))
+        self.conn.commit()
+
+
 db = Database()  # initialise database
 db.database_main()  # start the database
 
 db.create_shop(1, "IKI", "IKI Street 1", 5)
 db.create_shop(2, "MAXIMA", "Kaunas, Maksima Street 2", 6)
 db.create_item(3, 112233112233, "Zemaiciu bread", "", 1.55, time.time(), 1)
-db.create_item(4, 33333222111, "Klaipeda Milk",
-               "Milk from Klaipeda", 2.69, time.time(), 1)
+db.create_item(4, 33333222111, "Klaipeda Milk", "Milk from Klaipeda", 2.69, time.time(), 1)
 db.create_item(12, 99898989898, "Aukstaiciu Bread", "", 1.65, time.time(), 2)
-db.create_item(13, 99919191991, "Vilnius Milk",
-               "Milk from Vinius", 2.99, time.time(), 2)
+db.create_item(13, 99919191991, "Vilnius Milk", "Milk from Vinius", 2.99, time.time(), 2)
 
 db.create_component(5, "Flour", 1.50, time.time(), 3)
 db.create_component(6, "Water", 1.00, time.time(), 3)
@@ -195,5 +199,6 @@ db.create_component(9, "Water", 1.10, time.time(), 12)
 db.create_component(10, "Milk", 1.10, time.time(), 13)
 
 db.modify_component_by_id(6, 1.45)
+db.delete_component_by_id(10)
 
 db.print_all()
