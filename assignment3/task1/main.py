@@ -5,7 +5,7 @@ import time
 
 class Database:
     def __init__(self):
-        # connect to the databse and store connection
+        # connect to the databse and shop connection
         self.conn = self.connect("temporary.db")
         self.curs = self.conn.cursor()  # get database cursor object
 
@@ -25,7 +25,6 @@ class Database:
     def curs(self, value):  # setter for cursor property
         self._curs = value
 
-
     def connect(self, db_address):  # connect to database
         print("connecting to db...")
 
@@ -38,39 +37,32 @@ class Database:
 
         return connection
 
-
-    def create_store_table(self):  # create the article table
-        print("creating store table...")
+    def create_shop_table(self):  # create the article table
+        print("creating shop table...")
 
         self.curs.execute(
-            '''CREATE TABLE store (
-                store_id INTEGER PRIMARY KEY, 
-                name TEXT, 
-                address TEXT, 
+            '''CREATE TABLE shop (
+                shop_id INTEGER PRIMARY KEY,
+                name TEXT,
+                address TEXT,
                 items TEXT
             )'''
         )
-
 
     def create_item_table(self):  # create the comment table
         print("creating Item table...")
 
         self.curs.execute(
             '''CREATE TABLE items (
-                item_id INTEGER PRIMARY KEY,
+                item_id INTEGER PRIMARY KEY,3
                 barcode TEXT ,
                 name TEXT,
                 description TEXT,
                 unit_price DECIMAL,
-                store_id,
                 timestamp,
-                FOREIGN KEY (store_id)
-                    REFERENCES store (store_id)
-                    ON UPDATE CASCADE
-                    ON DELETE CASCADE
+                shop_id INT FOREIGN KEY REFERENCES shop(shop_id)
             )'''
         )
-
 
     def create_component_table(self):  # create the comment table
         print("creating coponents table...")
@@ -81,52 +73,58 @@ class Database:
                 name TEXT,
                 quantity DECIMAL,
                 timestamp,
-                item_id,
-                FOREIGN KEY (item_id)
-                    REFERENCES items (item_id)
-                    ON UPDATE CASCADE
-                    ON DELETE CASCADE
+                item_id INT FOREIGN KEY REFERENCES items(item_id)
             )'''
         )
 
-
-    def check_store_table_exists(self):
-        self.curs.execute('''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='store' ''')
+    def check_shop_table_exists(self):
+        self.curs.execute(
+            '''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='shop' ''')
 
         if self.curs.fetchone()[0] == 1:
             return True  # table exists
         else:
             return False  # table does not exist
-
 
     def check_item_table_exists(self):
-        self.curs.execute('''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='items' ''')
+        self.curs.execute(
+            '''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='items' ''')
 
         if self.curs.fetchone()[0] == 1:
             return True  # table exists
         else:
             return False  # table does not exist
-
 
     def check_component_table_exists(self):
-        self.curs.execute('''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='components' ''')
+        self.curs.execute(
+            '''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='components' ''')
 
         if self.curs.fetchone()[0] == 1:
             return True  # table exists
         else:
             return False  # table does not exist
 
+    def create_shop(self, id, name, address, item_id):
+        self.curs.execute('''INSERT INTO shop VALUES (?, ?, ?, ?)''',
+                          (id, name, address, item_id))
+
+    def create_item(self, id, barcode, name, description, unit_price, shop_id, timestamp):
+        self.curs.execute('''INSERT INTO items VALUES (?, ?, ?, ?, ?, ?)''',
+                          (id, barcode, name, description, unit_price, timestamp, shop_id))
+
+    def create_component(self, id, name, quanity, timestamp, item_id):
+        self.curs.execute('''INSERT INTO items VALUES (?, ?, ?, ?, )''',
+                          (id, name, quanity, timestamp, item_id))
 
     def database_main(self):  # main function for the database
-        self.start_database()  # start the databse
-
+        self.start_database()  # start the database
 
     def start_database(self):  # start the database
-        if not self.check_store_table_exists():
-            self.create_store_table()
+        if not self.check_shop_table_exists():
+            self.create_shop_table()
         else:
-            print("store table already exists !")
-        
+            print("shop table already exists !")
+
         if not self.check_item_table_exists():
             self.create_item_table()
         else:
@@ -138,5 +136,22 @@ class Database:
             print("components table already exists !")
 
 
-db = Database()  # initialise database 
+db = Database()  # initialise database
 db.database_main()  # start the database
+
+db.create_shop(1, "IKI", "IKI Street 1", 5)
+db.create_shop(2, "MAXIMA", "Kaunas, Maksima Street 2", 6)
+db.create_item(3, 112233112233, "Zemaiciu bread", "", 1.55, time.time(), 1)
+db.create_item(4, 33333222111, "Klaipeda Milk",
+               "Milk from Klaipeda", 2.69, time.time(), 1)
+db.create_item(12, 99898989898, "Aukstaiciu Bread", "", 1.65, time.time(), 2)
+db.create_item(13, 99919191991, "Vilnius Milk",
+               "Milk from Vinius", 2.99, time.time(), 2)
+
+db.create_component(5, "Flour", 1.50, time.time(), 3)
+db.create_component(6, "Water", 1.00, time.time(), 3)
+db.create_component(7, "Milk", 1.00, time.time(), 4)
+
+db.create_component(8, "Flour", 1.60, time.time(), 12)
+db.create_component(9, "Water", 1.10, time.time(), 12)
+db.create_component(10, "Milk", 1.10, time.time(), 13)
